@@ -73,29 +73,32 @@ margin-bottom:10px;
 font-size:16px;
 }
 
+/* 🔥 BOTONES MÁS PEGADOS A LA CANTIDAD */
 .qty{
 display:flex;
 justify-content:center;
 align-items:center;
-gap:10px;
+gap:5px;
 }
 
 .qty button{
-width:35px;
-height:35px;
+width:32px;
+height:32px;
 font-size:18px;
 padding:0;
 border-radius:50%;
 background:#e63946;
+margin:0;
 }
 
 .qty input{
-width:50px;
+width:45px;
 text-align:center;
 font-size:16px;
 border:none;
 border-radius:5px;
 padding:5px;
+margin:0;
 }
 
 input[type="text"], input[type="tel"], textarea{
@@ -204,7 +207,7 @@ background:#023e8a;
 </div>
 </div>
 
-<!-- 🔥 TOTAL JUSTO DESPUÉS DE PRODUCTOS -->
+<!-- TOTAL -->
 <div class="total">
 Total: $<span id="total">0</span>
 </div>
@@ -227,10 +230,7 @@ Total: $<span id="total">0</span>
 <textarea id="referencia" placeholder="Casa azul, número 24, privada Los Pinos..."></textarea>
 </div>
 
-<!-- UBICACIÓN -->
 <button class="location-btn" onclick="obtenerUbicacion()">📍 Enviar ubicación actual</button>
-
-<!-- WHATSAPP -->
 <button class="whatsapp" onclick="enviarPedido()">HACER PEDIDO POR WHATSAPP</button>
 
 </div>
