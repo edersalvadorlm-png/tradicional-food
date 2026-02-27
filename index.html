@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tradicional Food</title>
+<style>
+body{
+margin:0;
+font-family:Arial, Helvetica, sans-serif;
+background:#000;
+color:white;
+text-align:center;
+}
+.container{
+padding:20px;
+max-width:500px;
+margin:auto;
+}
+.logo{
+width:200px;
+margin-top:20px;
+}
+h1{
+color:#e63946;
+margin-bottom:5px;
+}
+button{
+background:#e63946;
+color:white;
+border:none;
+padding:15px;
+margin:10px;
+width:90%;
+font-size:18px;
+border-radius:10px;
+cursor:pointer;
+}
+button:hover{
+background:#c1121f;
+}
+.menu{
+display:none;
+margin-top:20px;
+text-align:left;
+}
+.item{
+display:flex;
+justify-content:space-between;
+margin:10px 0;
+}
+.total{
+font-size:22px;
+margin-top:20px;
+color:#2a9d8f;
+}
+.whatsapp{
+background:#25D366;
+}
+.whatsapp:hover{
+background:#1ebe5d;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<img src="https://i.imgur.com/placeholder.png" class="logo">
+
+<h1>Tradicional Food</h1>
+<p>Discada Norteña Tradicional</p>
+
+<button onclick="mostrarMenu()">VER MENÚ</button>
+
+<div class="menu" id="menu">
+
+<div class="item">
+<label><input type="checkbox" value="150" onchange="calcular()"> Discada 1/2 litro - $150</label>
+</div>
+
+<div class="item">
+<label><input type="checkbox" value="250" onchange="calcular()"> Discada 1 litro - $250</label>
+</div>
+
+<div class="item">
+<label><input type="checkbox" value="120" onchange="calcular()"> 1 litro Salsa - $120</label>
+</div>
+
+<div class="item">
+<label><input type="checkbox" value="60" onchange="calcular()"> 1/2 litro Salsa - $60</label>
+</div>
+
+<div class="item">
+<label><input type="checkbox" value="20" onchange="calcular()"> Extra tortillas - $20</label>
+</div>
+
+<div class="item">
+<label><input type="checkbox" value="15" onchange="calcular()"> Extra salsa - $15</label>
+</div>
+
+<div class="total">
+Total: $<span id="total">0</span>
+</div>
+
+<button class="whatsapp" onclick="enviarPedido()">HACER PEDIDO POR WHATSAPP</button>
+
+</div>
+
+</div>
+
+<script>
+function mostrarMenu(){
+document.getElementById("menu").style.display="block";
+}
+
+function calcular(){
+let total=0;
+document.querySelectorAll('input[type="checkbox"]:checked').forEach(function(el){
+total+=parseInt(el.value);
+});
+document.getElementById("total").innerText=total;
+}
+
+function enviarPedido(){
+let pedido="Hola, quiero hacer el siguiente pedido:%0A";
+let total=0;
+
+document.querySelectorAll('input[type="checkbox"]:checked').forEach(function(el){
+pedido+="- "+el.parentElement.innerText+"%0A";
+total+=parseInt(el.value);
+});
+
+pedido+="Total: $"+total;
+
+window.open("https://wa.me/528181799894?text="+pedido,"_blank");
+}
+</script>
+
+</body>
+</html>
