@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tradicional Food</title>
+
 <style>
 body{
 margin:0;
@@ -12,19 +13,28 @@ background:#000;
 color:white;
 text-align:center;
 }
-.container{
-padding:20px;
-max-width:500px;
-margin:auto;
+
+.hero{
+background:url('discada.png') center/cover no-repeat;
+padding:80px 20px;
+position:relative;
 }
+
+.overlay{
+background:rgba(0,0,0,0.7);
+padding:40px 20px;
+}
+
 .logo{
 width:200px;
-margin-top:20px;
+margin-bottom:20px;
 }
+
 h1{
 color:#e63946;
-margin-bottom:5px;
+margin:10px 0;
 }
+
 button{
 background:#e63946;
 color:white;
@@ -36,27 +46,46 @@ font-size:18px;
 border-radius:10px;
 cursor:pointer;
 }
+
 button:hover{
 background:#c1121f;
 }
+
 .menu{
 display:none;
-margin-top:20px;
+padding:20px;
+max-width:500px;
+margin:auto;
 text-align:left;
 }
+
 .item{
+margin:15px 0;
+}
+
+.qty{
 display:flex;
 justify-content:space-between;
-margin:10px 0;
+align-items:center;
 }
+
+.qty input{
+width:60px;
+text-align:center;
+font-size:16px;
+}
+
 .total{
 font-size:22px;
 margin-top:20px;
 color:#2a9d8f;
+text-align:center;
 }
+
 .whatsapp{
 background:#25D366;
 }
+
 .whatsapp:hover{
 background:#1ebe5d;
 }
@@ -64,39 +93,61 @@ background:#1ebe5d;
 </head>
 <body>
 
-<div class="container">
+<div class="hero">
+<div class="overlay">
 
-<img src="https://i.imgur.com/placeholder.png" class="logo">
+<img src="logo.png" class="logo">
 
 <h1>Tradicional Food</h1>
-<p>Discada Norteña Tradicional</p>
+<p>Discada Norteña 100% Casera</p>
 
-<button onclick="mostrarMenu()">VER MENÚ</button>
+<button onclick="mostrarMenu()">🔥 PROMOCIONES 🔥</button>
+
+</div>
+</div>
 
 <div class="menu" id="menu">
 
 <div class="item">
-<label><input type="checkbox" value="150" onchange="calcular()"> Discada 1/2 litro - $150</label>
+<label>Discada 1/2 litro - $150</label>
+<div class="qty">
+<input type="number" min="0" value="0" id="p1" onchange="calcular()">
+</div>
 </div>
 
 <div class="item">
-<label><input type="checkbox" value="250" onchange="calcular()"> Discada 1 litro - $250</label>
+<label>Discada 1 litro - $250</label>
+<div class="qty">
+<input type="number" min="0" value="0" id="p2" onchange="calcular()">
+</div>
 </div>
 
 <div class="item">
-<label><input type="checkbox" value="120" onchange="calcular()"> 1 litro Salsa - $120</label>
+<label>1 litro Salsa - $120</label>
+<div class="qty">
+<input type="number" min="0" value="0" id="p3" onchange="calcular()">
+</div>
 </div>
 
 <div class="item">
-<label><input type="checkbox" value="60" onchange="calcular()"> 1/2 litro Salsa - $60</label>
+<label>1/2 litro Salsa - $60</label>
+<div class="qty">
+<input type="number" min="0" value="0" id="p4" onchange="calcular()">
+</div>
 </div>
 
 <div class="item">
-<label><input type="checkbox" value="20" onchange="calcular()"> Extra tortillas - $20</label>
+<label>Extra tortillas - $20</label>
+<div class="qty">
+<input type="number" min="0" value="0" id="p5" onchange="calcular()">
+</div>
 </div>
 
 <div class="item">
-<label><input type="checkbox" value="15" onchange="calcular()"> Extra salsa - $15</label>
+<label>Extra salsa - $15</label>
+<div class="qty">
+<input type="number" min="0" value="0" id="p6" onchange="calcular()">
+</div>
 </div>
 
 <div class="total">
@@ -107,34 +158,42 @@ Total: $<span id="total">0</span>
 
 </div>
 
-</div>
-
 <script>
+
 function mostrarMenu(){
 document.getElementById("menu").style.display="block";
+window.scrollTo(0,document.body.scrollHeight);
 }
 
 function calcular(){
-let total=0;
-document.querySelectorAll('input[type="checkbox"]:checked').forEach(function(el){
-total+=parseInt(el.value);
-});
-document.getElementById("total").innerText=total;
+let total = 
+(p1.value * 150) +
+(p2.value * 250) +
+(p3.value * 120) +
+(p4.value * 60) +
+(p5.value * 20) +
+(p6.value * 15);
+
+document.getElementById("total").innerText = total;
 }
 
 function enviarPedido(){
+
 let pedido="Hola, quiero hacer el siguiente pedido:%0A";
 let total=0;
 
-document.querySelectorAll('input[type="checkbox"]:checked').forEach(function(el){
-pedido+="- "+el.parentElement.innerText+"%0A";
-total+=parseInt(el.value);
-});
+if(p1.value>0){ pedido+= p1.value+" Discada 1/2 litro%0A"; total+=p1.value*150;}
+if(p2.value>0){ pedido+= p2.value+" Discada 1 litro%0A"; total+=p2.value*250;}
+if(p3.value>0){ pedido+= p3.value+" 1 litro Salsa%0A"; total+=p3.value*120;}
+if(p4.value>0){ pedido+= p4.value+" 1/2 litro Salsa%0A"; total+=p4.value*60;}
+if(p5.value>0){ pedido+= p5.value+" Extra tortillas%0A"; total+=p5.value*20;}
+if(p6.value>0){ pedido+= p6.value+" Extra salsa%0A"; total+=p6.value*15;}
 
 pedido+="Total: $"+total;
 
 window.open("https://wa.me/528181799894?text="+pedido,"_blank");
 }
+
 </script>
 
 </body>
