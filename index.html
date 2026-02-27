@@ -9,9 +9,20 @@
 body{
 margin:0;
 font-family:Arial, Helvetica, sans-serif;
-background:#000;
 color:white;
 text-align:center;
+
+/* 🔥 FONDO NUEVO */
+background-image: url("https://i.postimg.cc/BbGwVMsD/fondo.png");
+background-size: cover;
+background-position: center;
+background-attachment: fixed;
+}
+
+/* Capa oscura para que el texto se lea bien */
+.overlay{
+background: rgba(0,0,0,0.75);
+min-height:100vh;
 }
 
 .header{
@@ -94,6 +105,8 @@ background:#1ebe5d;
 </head>
 <body>
 
+<div class="overlay">
+
 <div class="header">
 
 <img src="https://i.postimg.cc/nL6gfHZ0/logo.png" class="logo">
@@ -154,6 +167,8 @@ Total: $<span id="total">0</span>
 </div>
 
 <button class="whatsapp" onclick="enviarPedido()">HACER PEDIDO POR WHATSAPP</button>
+
+</div>
 
 </div>
 
