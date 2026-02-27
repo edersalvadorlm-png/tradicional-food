@@ -14,26 +14,19 @@ color:white;
 text-align:center;
 }
 
-.hero{
-background:url('https://i.postimg.cc/nL6gfHZ0/logo.png') center/cover no-repeat;
-padding:80px 20px;
-position:relative;
-}
-
-.overlay{
-background:rgba(0,0,0,0.75);
-padding:40px 20px;
+.header{
+padding:40px 20px 10px 20px;
 }
 
 .logo{
-width:220px;
-margin-bottom:20px;
+width:180px;
+margin-bottom:15px;
 }
 
 h1{
 color:#e63946;
-margin:10px 0;
-font-size:28px;
+margin:5px 0;
+font-size:26px;
 }
 
 button{
@@ -41,12 +34,13 @@ background:#e63946;
 color:white;
 border:none;
 padding:15px;
-margin:10px;
-width:90%;
+margin:20px auto;
+width:85%;
 font-size:18px;
 border-radius:10px;
 cursor:pointer;
 transition:0.3s;
+display:block;
 }
 
 button:hover{
@@ -62,21 +56,23 @@ text-align:left;
 }
 
 .item{
-margin:18px 0;
+margin:20px 0;
 }
 
 .qty{
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-top:5px;
+margin-top:8px;
 }
 
 .qty input{
 width:70px;
 text-align:center;
 font-size:16px;
-padding:5px;
+padding:6px;
+border-radius:5px;
+border:none;
 }
 
 .total{
@@ -98,17 +94,15 @@ background:#1ebe5d;
 </head>
 <body>
 
-<div class="hero">
-<div class="overlay">
+<div class="header">
 
 <img src="https://i.postimg.cc/nL6gfHZ0/logo.png" class="logo">
 
 <h1>Tradicional Food</h1>
 <p>Discada Norteña 100% Casera</p>
 
-<button onclick="mostrarMenu()">🔥 PROMOCIONES 🔥</button>
+<button onclick="mostrarMenu()">🔥 HAZ TU PEDIDO 🔥</button>
 
-</div>
 </div>
 
 <div class="menu" id="menu">
