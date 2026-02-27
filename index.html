@@ -11,15 +11,12 @@ margin:0;
 font-family:Arial, Helvetica, sans-serif;
 color:white;
 text-align:center;
-
-/* 🔥 NUEVO FONDO */
 background-image: url("https://i.postimg.cc/Hs89yQCR/fondo.png");
 background-size: cover;
 background-position: center;
 background-attachment: fixed;
 }
 
-/* Capa oscura para que el texto se lea bien */
 .overlay{
 background: rgba(0,0,0,0.75);
 min-height:100vh;
@@ -86,6 +83,15 @@ border-radius:5px;
 border:none;
 }
 
+textarea{
+width:100%;
+padding:10px;
+border-radius:8px;
+border:none;
+margin-top:10px;
+font-size:14px;
+}
+
 .total{
 font-size:24px;
 margin-top:25px;
@@ -108,14 +114,10 @@ background:#1ebe5d;
 <div class="overlay">
 
 <div class="header">
-
 <img src="https://i.postimg.cc/nL6gfHZ0/logo.png" class="logo">
-
 <h1>Tradicional Food</h1>
 <p>Discada Norteña 100% Casera</p>
-
 <button onclick="mostrarMenu()">🔥 HAZ TU PEDIDO 🔥</button>
-
 </div>
 
 <div class="menu" id="menu">
@@ -162,6 +164,11 @@ background:#1ebe5d;
 </div>
 </div>
 
+<div class="item">
+<label>📍 Dirección y referencias (color de casa, número, privada, piso, etc.)</label>
+<textarea id="referencia" placeholder="Ej: Casa azul, portón negro, privada Los Pinos, casa 24..."></textarea>
+</div>
+
 <div class="total">
 Total: $<span id="total">0</span>
 </div>
@@ -169,7 +176,6 @@ Total: $<span id="total">0</span>
 <button class="whatsapp" onclick="enviarPedido()">HACER PEDIDO POR WHATSAPP</button>
 
 </div>
-
 </div>
 
 <script>
@@ -203,9 +209,26 @@ if(p4.value>0){ pedido+= p4.value+" 1/2 litro Salsa%0A"; total+=p4.value*60;}
 if(p5.value>0){ pedido+= p5.value+" Extra tortillas%0A"; total+=p5.value*20;}
 if(p6.value>0){ pedido+= p6.value+" Extra salsa%0A"; total+=p6.value*15;}
 
-pedido+="Total: $"+total;
+pedido+="Total: $"+total+"%0A";
 
+let referencia = document.getElementById("referencia").value;
+if(referencia){
+pedido+="Referencia: "+referencia+"%0A";
+}
+
+if(navigator.geolocation){
+navigator.geolocation.getCurrentPosition(function(position){
+let lat = position.coords.latitude;
+let lon = position.coords.longitude;
+pedido+="Ubicación: https://www.google.com/maps?q="+lat+","+lon;
 window.open("https://wa.me/528181799894?text="+pedido,"_blank");
+}, function(){
+window.open("https://wa.me/528181799894?text="+pedido,"_blank");
+});
+}else{
+window.open("https://wa.me/528181799894?text="+pedido,"_blank");
+}
+
 }
 
 </script>
