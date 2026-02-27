@@ -117,11 +117,16 @@ font-size:14px;
 }
 
 .total{
-font-size:22px;
-margin-top:20px;
+font-size:28px;
+margin-top:25px;
+margin-bottom:15px;
 color:#2a9d8f;
 text-align:center;
 font-weight:bold;
+}
+
+#total{
+font-size:36px;
 }
 
 .whatsapp{
@@ -210,6 +215,11 @@ background:#023e8a;
 </div>
 </div>
 
+<!-- TOTAL AHORA ARRIBA -->
+<div class="total">
+Total: $<span id="total">0</span>
+</div>
+
 <!-- NOMBRE -->
 <div class="item">
 <label>Nombre</label>
@@ -229,10 +239,6 @@ background:#023e8a;
 </div>
 
 <button class="location-btn" onclick="obtenerUbicacion()">📍 Enviar ubicación actual</button>
-
-<div class="total">
-Total: $<span id="total">0</span>
-</div>
 
 <button class="whatsapp" onclick="enviarPedido()">HACER PEDIDO POR WHATSAPP</button>
 
