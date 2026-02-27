@@ -98,16 +98,7 @@ border-radius:5px;
 padding:5px;
 }
 
-input[type="text"], input[type="tel"]{
-width:100%;
-padding:10px;
-border-radius:8px;
-border:none;
-margin-top:8px;
-font-size:14px;
-}
-
-textarea{
+input[type="text"], input[type="tel"], textarea{
 width:100%;
 padding:10px;
 border-radius:8px;
@@ -118,15 +109,13 @@ font-size:14px;
 
 .total{
 font-size:28px;
-margin-top:25px;
-margin-bottom:15px;
+margin:30px 0 10px 0;
 color:#2a9d8f;
-text-align:center;
 font-weight:bold;
 }
 
 #total{
-font-size:36px;
+font-size:40px;
 }
 
 .whatsapp{
@@ -215,7 +204,7 @@ background:#023e8a;
 </div>
 </div>
 
-<!-- TOTAL AHORA ARRIBA -->
+<!-- TOTAL BIEN POSICIONADO -->
 <div class="total">
 Total: $<span id="total">0</span>
 </div>
@@ -232,21 +221,22 @@ Total: $<span id="total">0</span>
 <input type="tel" id="telefono" placeholder="Tu número de contacto">
 </div>
 
-<!-- REFERENCIA -->
+<!-- DIRECCIÓN -->
 <div class="item">
 <label>📍 Dirección y referencias</label>
 <textarea id="referencia" placeholder="Casa azul, número 24, privada Los Pinos..."></textarea>
 </div>
 
+<!-- UBICACIÓN -->
 <button class="location-btn" onclick="obtenerUbicacion()">📍 Enviar ubicación actual</button>
 
+<!-- WHATSAPP -->
 <button class="whatsapp" onclick="enviarPedido()">HACER PEDIDO POR WHATSAPP</button>
 
 </div>
 </div>
 
 <script>
-
 let ubicacionLink = "";
 
 function mostrarMenu(){
@@ -255,77 +245,63 @@ window.scrollTo(0,document.body.scrollHeight);
 }
 
 function cambiarCantidad(id,valor){
-let input = document.getElementById(id);
-let cantidad = parseInt(input.value) + valor;
-if(cantidad < 0) cantidad = 0;
-input.value = cantidad;
+let input=document.getElementById(id);
+let cantidad=parseInt(input.value)+valor;
+if(cantidad<0)cantidad=0;
+input.value=cantidad;
 calcular();
 }
 
 function calcular(){
-let total = 
-(p1.value * 150) +
-(p2.value * 250) +
-(p3.value * 120) +
-(p4.value * 60) +
-(p5.value * 20) +
-(p6.value * 15);
-document.getElementById("total").innerText = total;
+let total=
+(p1.value*150)+
+(p2.value*250)+
+(p3.value*120)+
+(p4.value*60)+
+(p5.value*20)+
+(p6.value*15);
+document.getElementById("total").innerText=total;
 }
 
 function obtenerUbicacion(){
 if(navigator.geolocation){
 navigator.geolocation.getCurrentPosition(function(position){
-let lat = position.coords.latitude;
-let lon = position.coords.longitude;
-ubicacionLink = "https://www.google.com/maps?q="+lat+","+lon;
+let lat=position.coords.latitude;
+let lon=position.coords.longitude;
+ubicacionLink="https://www.google.com/maps?q="+lat+","+lon;
 alert("Ubicación agregada correctamente ✅");
 });
-}else{
-alert("Tu navegador no permite ubicación");
 }
 }
 
 function enviarPedido(){
-
-let nombre = document.getElementById("nombre").value;
-let telefono = document.getElementById("telefono").value;
+let nombre=document.getElementById("nombre").value;
+let telefono=document.getElementById("telefono").value;
 
 let pedido="Hola, quiero hacer el siguiente pedido:%0A%0A";
 
-if(nombre){
-pedido+="Nombre: "+nombre+"%0A";
-}
-
-if(telefono){
-pedido+="Teléfono: "+telefono+"%0A";
-}
+if(nombre)pedido+="Nombre: "+nombre+"%0A";
+if(telefono)pedido+="Teléfono: "+telefono+"%0A";
 
 pedido+="%0A";
 
 let total=0;
 
-if(p1.value>0){ pedido+= p1.value+" Discada 1/2 litro%0A"; total+=p1.value*150;}
-if(p2.value>0){ pedido+= p2.value+" Discada 1 litro%0A"; total+=p2.value*250;}
-if(p3.value>0){ pedido+= p3.value+" 1 litro Salsa%0A"; total+=p3.value*120;}
-if(p4.value>0){ pedido+= p4.value+" 1/2 litro Salsa%0A"; total+=p4.value*60;}
-if(p5.value>0){ pedido+= p5.value+" Extra tortillas%0A"; total+=p5.value*20;}
-if(p6.value>0){ pedido+= p6.value+" Extra salsa%0A"; total+=p6.value*15;}
+if(p1.value>0){pedido+=p1.value+" Discada 1/2 litro%0A";total+=p1.value*150;}
+if(p2.value>0){pedido+=p2.value+" Discada 1 litro%0A";total+=p2.value*250;}
+if(p3.value>0){pedido+=p3.value+" 1 litro Salsa%0A";total+=p3.value*120;}
+if(p4.value>0){pedido+=p4.value+" 1/2 litro Salsa%0A";total+=p4.value*60;}
+if(p5.value>0){pedido+=p5.value+" Extra tortillas%0A";total+=p5.value*20;}
+if(p6.value>0){pedido+=p6.value+" Extra salsa%0A";total+=p6.value*15;}
 
 pedido+="Total: $"+total+"%0A";
 
-let referencia = document.getElementById("referencia").value;
-if(referencia){
-pedido+="Dirección: "+referencia+"%0A";
-}
-
-if(ubicacionLink){
-pedido+="Ubicación: "+ubicacionLink;
-}
+let referencia=document.getElementById("referencia").value;
+if(referencia)pedido+="Dirección: "+referencia+"%0A";
+if(ubicacionLink)pedido+="Ubicación: "+ubicacionLink;
 
 window.open("https://wa.me/528181799894?text="+pedido,"_blank");
 }
-
 </script>
 
 </body>
