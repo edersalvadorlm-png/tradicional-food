@@ -98,12 +98,21 @@ border-radius:5px;
 padding:5px;
 }
 
+input[type="text"], input[type="tel"]{
+width:100%;
+padding:10px;
+border-radius:8px;
+border:none;
+margin-top:8px;
+font-size:14px;
+}
+
 textarea{
 width:100%;
 padding:10px;
 border-radius:8px;
 border:none;
-margin-top:10px;
+margin-top:8px;
 font-size:14px;
 }
 
@@ -144,6 +153,8 @@ background:#023e8a;
 </div>
 
 <div class="menu" id="menu">
+
+<!-- PRODUCTOS -->
 
 <div class="item">
 <label>Discada 1/2 litro - $150</label>
@@ -199,6 +210,19 @@ background:#023e8a;
 </div>
 </div>
 
+<!-- NOMBRE -->
+<div class="item">
+<label>Nombre</label>
+<input type="text" id="nombre" placeholder="Escribe tu nombre">
+</div>
+
+<!-- TELEFONO -->
+<div class="item">
+<label>Teléfono</label>
+<input type="tel" id="telefono" placeholder="Tu número de contacto">
+</div>
+
+<!-- REFERENCIA -->
 <div class="item">
 <label>📍 Dirección y referencias</label>
 <textarea id="referencia" placeholder="Casa azul, número 24, privada Los Pinos..."></textarea>
@@ -258,7 +282,21 @@ alert("Tu navegador no permite ubicación");
 
 function enviarPedido(){
 
-let pedido="Hola, quiero hacer el siguiente pedido:%0A";
+let nombre = document.getElementById("nombre").value;
+let telefono = document.getElementById("telefono").value;
+
+let pedido="Hola, quiero hacer el siguiente pedido:%0A%0A";
+
+if(nombre){
+pedido+="Nombre: "+nombre+"%0A";
+}
+
+if(telefono){
+pedido+="Teléfono: "+telefono+"%0A";
+}
+
+pedido+="%0A";
+
 let total=0;
 
 if(p1.value>0){ pedido+= p1.value+" Discada 1/2 litro%0A"; total+=p1.value*150;}
@@ -272,7 +310,7 @@ pedido+="Total: $"+total+"%0A";
 
 let referencia = document.getElementById("referencia").value;
 if(referencia){
-pedido+="Referencia: "+referencia+"%0A";
+pedido+="Dirección: "+referencia+"%0A";
 }
 
 if(ubicacionLink){
