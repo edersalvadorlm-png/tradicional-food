@@ -73,7 +73,6 @@ margin-bottom:10px;
 font-size:16px;
 }
 
-/* 🔥 BOTONES MÁS PEGADOS A LA CANTIDAD */
 .qty{
 display:flex;
 justify-content:center;
@@ -151,8 +150,6 @@ background:#023e8a;
 
 <div class="menu" id="menu">
 
-<!-- PRODUCTOS -->
-
 <div class="item">
 <label>Discada 1/2 litro - $150</label>
 <div class="qty">
@@ -207,24 +204,20 @@ background:#023e8a;
 </div>
 </div>
 
-<!-- TOTAL -->
 <div class="total">
 Total: $<span id="total">0</span>
 </div>
 
-<!-- NOMBRE -->
 <div class="item">
 <label>Nombre</label>
 <input type="text" id="nombre" placeholder="Escribe tu nombre">
 </div>
 
-<!-- TELEFONO -->
 <div class="item">
 <label>Teléfono</label>
 <input type="tel" id="telefono" placeholder="Tu número de contacto">
 </div>
 
-<!-- DIRECCIÓN -->
 <div class="item">
 <label>📍 Dirección y referencias</label>
 <textarea id="referencia" placeholder="Casa azul, número 24, privada Los Pinos..."></textarea>
@@ -241,7 +234,13 @@ Total: $<span id="total">0</span>
 let ubicacionLink = "";
 
 function mostrarMenu(){
-document.getElementById("menu").style.display="block";
+let menu = document.getElementById("menu");
+
+if(menu.style.display === "block"){
+menu.style.display = "none";
+} else {
+menu.style.display = "block";
+}
 }
 
 function cambiarCantidad(id,valor){
