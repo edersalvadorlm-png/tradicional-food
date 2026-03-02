@@ -54,6 +54,60 @@ button:hover{
 background:#c1121f;
 }
 
+/* BOTONES NUEVOS */
+.btn-ingredientes{
+background:#ffb703;
+color:black;
+}
+.btn-ingredientes:hover{
+background:#fb8500;
+}
+
+.btn-transferencia{
+background:#0077b6;
+}
+.btn-transferencia:hover{
+background:#023e8a;
+}
+
+.seccion-extra{
+display:none;
+padding:20px;
+max-width:500px;
+margin:auto;
+}
+
+.seccion-extra img{
+width:100%;
+border-radius:10px;
+margin-top:15px;
+}
+
+.cuenta-box{
+background:white;
+color:black;
+padding:15px;
+border-radius:10px;
+margin-top:15px;
+}
+
+.cuenta-numero{
+font-size:22px;
+font-weight:bold;
+margin:10px 0;
+word-break:break-all;
+}
+
+.btn-copiar{
+background:#2a9d8f;
+color:white;
+padding:8px 12px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+margin-top:5px;
+}
+
 .menu{
 display:none;
 padding:20px;
@@ -145,9 +199,29 @@ background:#023e8a;
 <img src="https://i.postimg.cc/nL6gfHZ0/logo.png" class="logo">
 <h1>Tradicional Food</h1>
 <p>Discada Norteña 100% Casera</p>
-<button onclick="mostrarMenu()">🔥 HAZ TU PEDIDO 🔥</button>
+
+<button onclick="toggleSeccion('menu')">🔥 HAZ TU PEDIDO 🔥</button>
+<button class="btn-ingredientes" onclick="toggleSeccion('ingredientes')">🍳 Ingredientes</button>
+<button class="btn-transferencia" onclick="toggleSeccion('transferencia')">💳 Cuenta para transferencias</button>
+
 </div>
 
+<!-- INGREDIENTES -->
+<div class="seccion-extra" id="ingredientes">
+<img src="https://i.postimg.cc/CLjBHS7D/Ingredientes.png">
+</div>
+
+<!-- TRANSFERENCIA -->
+<div class="seccion-extra" id="transferencia">
+<div class="cuenta-box">
+<div><strong>Banco:</strong> Santander</div>
+<div class="cuenta-numero" id="cuenta">5579100370090225</div>
+<button class="btn-copiar" onclick="copiarCuenta()">Copiar cuenta</button>
+</div>
+<img src="https://i.postimg.cc/sgrnwfR0/Transferencias.png">
+</div>
+
+<!-- MENU ORIGINAL -->
 <div class="menu" id="menu">
 
 <div class="item">
@@ -233,14 +307,30 @@ Total: $<span id="total">0</span>
 
 let ubicacionLink = "";
 
-function mostrarMenu(){
-let menu = document.getElementById("menu");
+function toggleSeccion(id){
 
-if(menu.style.display === "block"){
-menu.style.display = "none";
-} else {
-menu.style.display = "block";
+let secciones = ["menu","ingredientes","transferencia"];
+
+secciones.forEach(function(sec){
+if(sec !== id){
+document.getElementById(sec).style.display="none";
 }
+});
+
+let elemento = document.getElementById(id);
+
+if(elemento.style.display === "block"){
+elemento.style.display = "none";
+}else{
+elemento.style.display = "block";
+}
+
+}
+
+function copiarCuenta(){
+let texto = document.getElementById("cuenta").innerText;
+navigator.clipboard.writeText(texto);
+alert("Cuenta copiada ✅");
 }
 
 function cambiarCantidad(id,valor){
