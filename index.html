@@ -21,18 +21,21 @@ overflow-x:hidden;
 .overlay{
 background: rgba(0,0,0,0.75);
 min-height:100vh;
-padding-bottom:40px;
+}
+
+/* HEADER */
+.header{
+padding:20px;
 }
 
 .logo{
 width:180px;
-margin-top:15px;
-margin-bottom:5px;
+margin-bottom:10px;
 }
 
 h1{
 margin:0;
-font-size:28px;
+font-size:26px;
 }
 
 /* TEXTO DORADO */
@@ -61,9 +64,7 @@ cursor:pointer;
 display:block;
 }
 
-.btn-principal:hover{
-background:#c1121f;
-}
+.btn-principal:hover{ background:#c1121f; }
 
 .btn-negro{
 background:black;
@@ -83,21 +84,8 @@ background:#111;
 box-shadow:0 0 8px white;
 }
 
-.btn-ubicacion{
-background:#0077b6;
-color:white;
-border:none;
-padding:10px;
-margin:10px auto;
-width:85%;
-font-size:14px;
-border-radius:8px;
-cursor:pointer;
-display:block;
-}
-
 /* SECCIONES */
-.seccion{
+.seccion-extra, .menu{
 display:none;
 padding:20px;
 max-width:500px;
@@ -115,10 +103,30 @@ font-size:26px;
 cursor:pointer;
 }
 
-/* MENU */
-.item{
-margin:25px 0;
+.seccion-extra img{
+width:100%;
+border-radius:10px;
+margin-top:15px;
 }
+
+/* CUENTA */
+.cuenta-box{
+background:white;
+color:black;
+padding:15px;
+border-radius:10px;
+margin-top:15px;
+}
+
+.cuenta-numero{
+font-size:22px;
+font-weight:bold;
+margin:10px 0;
+word-break:break-all;
+}
+
+/* MENU */
+.item{ margin:25px 0; }
 
 .item label{
 display:block;
@@ -165,17 +173,28 @@ font-size:14px;
 
 .total{
 font-size:28px;
-margin:25px 0 10px 0;
+margin:30px 0 10px 0;
 color:#2a9d8f;
 font-weight:bold;
 }
 
-#total{
-font-size:40px;
-}
+#total{ font-size:40px; }
 
 .whatsapp{
 background:#25D366;
+color:white;
+border:none;
+padding:12px;
+margin:8px auto;
+width:85%;
+font-size:16px;
+border-radius:10px;
+cursor:pointer;
+display:block;
+}
+
+.location-btn{
+background:#0077b6;
 color:white;
 border:none;
 padding:12px;
@@ -192,6 +211,7 @@ display:block;
 <body>
 <div class="overlay">
 
+<div class="header">
 <img src="https://i.postimg.cc/nL6gfHZ0/logo.png" class="logo">
 <h1>Discada Norteña</h1>
 
@@ -200,69 +220,91 @@ Venta Sábado y Domingo<br>
 Horario de 1:00 pm a 4:00 pm
 </div>
 
-<button class="btn-negro" onclick="mostrar('promociones')">PROMOCIONES</button>
-<button class="btn-principal" onclick="mostrar('menu')">🔥 HAZ TU PEDIDO 🔥</button>
-<button class="btn-negro" onclick="mostrar('ingredientes')">INGREDIENTES</button>
-<button class="btn-negro" onclick="mostrar('cuenta')">💳 CUENTA PARA TRANSFERENCIAS</button>
+<button class="btn-negro" onclick="mostrarSeccion('promociones')">PROMOCIONES</button>
+<button class="btn-principal" onclick="mostrarSeccion('menu')">🔥 HAZ TU PEDIDO 🔥</button>
+<button class="btn-negro" onclick="mostrarSeccion('ingredientes')">🍳 Ingredientes</button>
+<button class="btn-negro" onclick="mostrarSeccion('transferencia')">💳 Cuenta para transferencias</button>
+</div>
 
 <!-- PROMOCIONES -->
-<div class="seccion" id="promociones">
-<div class="flecha" onclick="cerrar()">⬅️</div>
-<img src="https://i.postimg.cc/bwCHt1qb/Litro.png" width="100%">
-<img src="https://i.postimg.cc/cJPRDZgH/Medio-litro.png" width="100%">
+<div class="seccion-extra" id="promociones">
+<div class="flecha" onclick="cerrarSecciones()">⬅️</div>
+<img src="https://i.postimg.cc/bwCHt1qb/Litro.png">
+<img src="https://i.postimg.cc/cJPRDZgH/Medio-litro.png">
 </div>
 
 <!-- INGREDIENTES -->
-<div class="seccion" id="ingredientes">
-<div class="flecha" onclick="cerrar()">⬅️</div>
-<img src="https://i.postimg.cc/CLjBHS7D/Ingredientes.png" width="100%">
+<div class="seccion-extra" id="ingredientes">
+<div class="flecha" onclick="cerrarSecciones()">⬅️</div>
+<img src="https://i.postimg.cc/CLjBHS7D/Ingredientes.png">
 </div>
 
-<!-- CUENTA -->
-<div class="seccion" id="cuenta">
-<div class="flecha" onclick="cerrar()">⬅️</div>
-<h3>Banco: Santander</h3>
-<p style="font-size:22px;font-weight:bold;">5579100370090225</p>
-<img src="https://i.postimg.cc/sgrnwfR0/Transferencias.png" width="100%">
+<!-- TRANSFERENCIA -->
+<div class="seccion-extra" id="transferencia">
+<div class="flecha" onclick="cerrarSecciones()">⬅️</div>
+<div class="cuenta-box">
+<div><strong>Banco:</strong> Santander</div>
+<div class="cuenta-numero" id="cuenta">5579100370090225</div>
+<button onclick="copiarCuenta()">Copiar cuenta</button>
+</div>
+<img src="https://i.postimg.cc/sgrnwfR0/Transferencias.png">
 </div>
 
-<!-- MENU -->
-<div class="seccion" id="menu">
-<div class="flecha" onclick="cerrar()">⬅️</div>
-
-<div class="item">
-<label>Litro - $180</label>
-<div class="qty">
-<button onclick="cambiar('litro',-1)">-</button>
-<input type="number" id="litro" value="0" min="0" onchange="actualizar()">
-<button onclick="cambiar('litro',1)">+</button>
-</div>
-</div>
+<!-- MENU ORIGINAL COMPLETO -->
+<div class="menu" id="menu">
+<div class="flecha" onclick="cerrarSecciones()">⬅️</div>
 
 <div class="item">
-<label>Medio Litro - $100</label>
+<label>Discada 1/2 litro - $150</label>
 <div class="qty">
-<button onclick="cambiar('medio',-1)">-</button>
-<input type="number" id="medio" value="0" min="0" onchange="actualizar()">
-<button onclick="cambiar('medio',1)">+</button>
+<button onclick="cambiarCantidad('p1',-1)">-</button>
+<input type="number" value="0" id="p1" readonly>
+<button onclick="cambiarCantidad('p1',1)">+</button>
 </div>
 </div>
 
 <div class="item">
-<label>Extra Tortillas - $20</label>
+<label>Discada 1 litro - $250</label>
 <div class="qty">
-<button onclick="cambiar('tortillas',-1)">-</button>
-<input type="number" id="tortillas" value="0" min="0" onchange="actualizar()">
-<button onclick="cambiar('tortillas',1)">+</button>
+<button onclick="cambiarCantidad('p2',-1)">-</button>
+<input type="number" value="0" id="p2" readonly>
+<button onclick="cambiarCantidad('p2',1)">+</button>
 </div>
 </div>
 
 <div class="item">
-<label>Extra Salsa - $15</label>
+<label>1 litro Salsa - $120</label>
 <div class="qty">
-<button onclick="cambiar('salsa',-1)">-</button>
-<input type="number" id="salsa" value="0" min="0" onchange="actualizar()">
-<button onclick="cambiar('salsa',1)">+</button>
+<button onclick="cambiarCantidad('p3',-1)">-</button>
+<input type="number" value="0" id="p3" readonly>
+<button onclick="cambiarCantidad('p3',1)">+</button>
+</div>
+</div>
+
+<div class="item">
+<label>1/2 litro Salsa - $60</label>
+<div class="qty">
+<button onclick="cambiarCantidad('p4',-1)">-</button>
+<input type="number" value="0" id="p4" readonly>
+<button onclick="cambiarCantidad('p4',1)">+</button>
+</div>
+</div>
+
+<div class="item">
+<label>Extra tortillas - $20</label>
+<div class="qty">
+<button onclick="cambiarCantidad('p5',-1)">-</button>
+<input type="number" value="0" id="p5" readonly>
+<button onclick="cambiarCantidad('p5',1)">+</button>
+</div>
+</div>
+
+<div class="item">
+<label>Extra salsa - $15</label>
+<div class="qty">
+<button onclick="cambiarCantidad('p6',-1)">-</button>
+<input type="number" value="0" id="p6" readonly>
+<button onclick="cambiarCantidad('p6',1)">+</button>
 </div>
 </div>
 
@@ -270,86 +312,91 @@ Horario de 1:00 pm a 4:00 pm
 Total: $<span id="total">0</span>
 </div>
 
-<input type="text" id="nombre" placeholder="Tu nombre">
-<input type="tel" id="telefono" placeholder="Tu teléfono">
-<textarea id="direccion" placeholder="Dirección de entrega"></textarea>
+<div class="item">
+<label>Nombre</label>
+<input type="text" id="nombre" placeholder="Escribe tu nombre">
+</div>
 
-<button class="btn-ubicacion" onclick="obtenerUbicacion()">📍 Enviar mi ubicación</button>
+<div class="item">
+<label>Teléfono</label>
+<input type="tel" id="telefono" placeholder="Tu número de contacto">
+</div>
 
-<button class="whatsapp" onclick="enviarPedido()">Enviar pedido por WhatsApp</button>
+<div class="item">
+<label>📍 Dirección y referencias</label>
+<textarea id="referencia" placeholder="Casa azul, número 24..."></textarea>
+</div>
+
+<button class="location-btn" onclick="obtenerUbicacion()">📍 Enviar ubicación actual</button>
+<button class="whatsapp" onclick="enviarPedido()">HACER PEDIDO POR WHATSAPP</button>
 </div>
 
 </div>
 
 <script>
-let ubicacionTexto="No enviada";
+let ubicacionLink = "";
 
-function mostrar(id){
-document.querySelectorAll('.seccion').forEach(sec=>sec.style.display="none");
+function mostrarSeccion(id){
+cerrarSecciones();
 document.getElementById(id).style.display="block";
 }
 
-function cerrar(){
-document.querySelectorAll('.seccion').forEach(sec=>sec.style.display="none");
+function cerrarSecciones(){
+["menu","ingredientes","transferencia","promociones"].forEach(id=>{
+let el=document.getElementById(id);
+if(el) el.style.display="none";
+});
 }
 
-function cambiar(id,valor){
+function copiarCuenta(){
+let texto=document.getElementById("cuenta").innerText;
+navigator.clipboard.writeText(texto);
+alert("Cuenta copiada ✅");
+}
+
+function cambiarCantidad(id,valor){
 let input=document.getElementById(id);
-let nuevo=parseInt(input.value)+valor;
-if(nuevo<0) nuevo=0;
-input.value=nuevo;
-actualizar();
+let cantidad=parseInt(input.value)+valor;
+if(cantidad<0)cantidad=0;
+input.value=cantidad;
+calcular();
 }
 
-function actualizar(){
-let litro=parseInt(litro.value)||0;
-let medio=parseInt(medio.value)||0;
-let tortillas=parseInt(tortillas.value)||0;
-let salsa=parseInt(salsa.value)||0;
-let total=(litro*180)+(medio*100)+(tortillas*20)+(salsa*15);
+function calcular(){
+let total=(p1.value*150)+(p2.value*250)+(p3.value*120)+(p4.value*60)+(p5.value*20)+(p6.value*15);
 document.getElementById("total").innerText=total;
 }
 
 function obtenerUbicacion(){
 if(navigator.geolocation){
-navigator.geolocation.getCurrentPosition(function(pos){
-let lat=pos.coords.latitude;
-let lon=pos.coords.longitude;
-ubicacionTexto="https://maps.google.com/?q="+lat+","+lon;
-alert("Ubicación agregada ✅");
+navigator.geolocation.getCurrentPosition(function(position){
+let lat=position.coords.latitude;
+let lon=position.coords.longitude;
+ubicacionLink="https://www.google.com/maps?q="+lat+","+lon;
+alert("Ubicación agregada correctamente ✅");
 });
-}else{
-alert("Tu navegador no permite ubicación");
 }
 }
 
 function enviarPedido(){
-let litro=document.getElementById("litro").value;
-let medio=document.getElementById("medio").value;
-let tortillas=document.getElementById("tortillas").value;
-let salsa=document.getElementById("salsa").value;
 let nombre=document.getElementById("nombre").value;
 let telefono=document.getElementById("telefono").value;
-let direccion=document.getElementById("direccion").value;
-let total=document.getElementById("total").innerText;
-
-if(total==0){
-alert("Agrega productos al pedido");
-return;
-}
-
-let mensaje="Pedido Discada Norteña:%0A";
-if(litro>0) mensaje+="Litro x"+litro+"%0A";
-if(medio>0) mensaje+="Medio Litro x"+medio+"%0A";
-if(tortillas>0) mensaje+="Tortillas x"+tortillas+"%0A";
-if(salsa>0) mensaje+="Salsa x"+salsa+"%0A";
-mensaje+="Total: $"+total+"%0A%0A";
-mensaje+="Nombre: "+nombre+"%0A";
-mensaje+="Teléfono: "+telefono+"%0A";
-mensaje+="Dirección: "+direccion+"%0A";
-mensaje+="Ubicación: "+ubicacionTexto;
-
-window.open("https://wa.me/5218110000000?text="+mensaje,"_blank");
+let pedido="Hola, quiero hacer el siguiente pedido:%0A%0A";
+if(nombre)pedido+="Nombre: "+nombre+"%0A";
+if(telefono)pedido+="Teléfono: "+telefono+"%0A";
+pedido+="%0A";
+let total=0;
+if(p1.value>0){pedido+=p1.value+" Discada 1/2 litro%0A";total+=p1.value*150;}
+if(p2.value>0){pedido+=p2.value+" Discada 1 litro%0A";total+=p2.value*250;}
+if(p3.value>0){pedido+=p3.value+" 1 litro Salsa%0A";total+=p3.value*120;}
+if(p4.value>0){pedido+=p4.value+" 1/2 litro Salsa%0A";total+=p4.value*60;}
+if(p5.value>0){pedido+=p5.value+" Extra tortillas%0A";total+=p5.value*20;}
+if(p6.value>0){pedido+=p6.value+" Extra salsa%0A";total+=p6.value*15;}
+pedido+="Total: $"+total+"%0A";
+let referencia=document.getElementById("referencia").value;
+if(referencia)pedido+="Dirección: "+referencia+"%0A";
+if(ubicacionLink)pedido+="Ubicación: "+ubicacionLink;
+window.open("https://wa.me/528181799894?text="+pedido,"_blank");
 }
 </script>
 
