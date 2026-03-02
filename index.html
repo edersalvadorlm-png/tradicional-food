@@ -83,6 +83,19 @@ background:#111;
 box-shadow:0 0 8px white;
 }
 
+.btn-ubicacion{
+background:#0077b6;
+color:white;
+border:none;
+padding:10px;
+margin:10px auto;
+width:85%;
+font-size:14px;
+border-radius:8px;
+cursor:pointer;
+display:block;
+}
+
 /* SECCIONES */
 .seccion{
 display:none;
@@ -102,7 +115,7 @@ font-size:26px;
 cursor:pointer;
 }
 
-/* MENU ITEMS */
+/* MENU */
 .item{
 margin:25px 0;
 }
@@ -213,7 +226,7 @@ Horario de 1:00 pm a 4:00 pm
 <img src="https://i.postimg.cc/sgrnwfR0/Transferencias.png" width="100%">
 </div>
 
-<!-- MENU PEDIDOS -->
+<!-- MENU -->
 <div class="seccion" id="menu">
 <div class="flecha" onclick="cerrar()">⬅️</div>
 
@@ -235,6 +248,24 @@ Horario de 1:00 pm a 4:00 pm
 </div>
 </div>
 
+<div class="item">
+<label>Extra Tortillas - $20</label>
+<div class="qty">
+<button onclick="cambiar('tortillas',-1)">-</button>
+<input type="number" id="tortillas" value="0" min="0" onchange="actualizar()">
+<button onclick="cambiar('tortillas',1)">+</button>
+</div>
+</div>
+
+<div class="item">
+<label>Extra Salsa - $15</label>
+<div class="qty">
+<button onclick="cambiar('salsa',-1)">-</button>
+<input type="number" id="salsa" value="0" min="0" onchange="actualizar()">
+<button onclick="cambiar('salsa',1)">+</button>
+</div>
+</div>
+
 <div class="total">
 Total: $<span id="total">0</span>
 </div>
@@ -243,12 +274,16 @@ Total: $<span id="total">0</span>
 <input type="tel" id="telefono" placeholder="Tu teléfono">
 <textarea id="direccion" placeholder="Dirección de entrega"></textarea>
 
+<button class="btn-ubicacion" onclick="obtenerUbicacion()">📍 Enviar mi ubicación</button>
+
 <button class="whatsapp" onclick="enviarPedido()">Enviar pedido por WhatsApp</button>
 </div>
 
 </div>
 
 <script>
+let ubicacionTexto="No enviada";
+
 function mostrar(id){
 document.querySelectorAll('.seccion').forEach(sec=>sec.style.display="none");
 document.getElementById(id).style.display="block";
@@ -267,15 +302,32 @@ actualizar();
 }
 
 function actualizar(){
-let litro=parseInt(document.getElementById("litro").value)||0;
-let medio=parseInt(document.getElementById("medio").value)||0;
-let total=(litro*180)+(medio*100);
+let litro=parseInt(litro.value)||0;
+let medio=parseInt(medio.value)||0;
+let tortillas=parseInt(tortillas.value)||0;
+let salsa=parseInt(salsa.value)||0;
+let total=(litro*180)+(medio*100)+(tortillas*20)+(salsa*15);
 document.getElementById("total").innerText=total;
+}
+
+function obtenerUbicacion(){
+if(navigator.geolocation){
+navigator.geolocation.getCurrentPosition(function(pos){
+let lat=pos.coords.latitude;
+let lon=pos.coords.longitude;
+ubicacionTexto="https://maps.google.com/?q="+lat+","+lon;
+alert("Ubicación agregada ✅");
+});
+}else{
+alert("Tu navegador no permite ubicación");
+}
 }
 
 function enviarPedido(){
 let litro=document.getElementById("litro").value;
 let medio=document.getElementById("medio").value;
+let tortillas=document.getElementById("tortillas").value;
+let salsa=document.getElementById("salsa").value;
 let nombre=document.getElementById("nombre").value;
 let telefono=document.getElementById("telefono").value;
 let direccion=document.getElementById("direccion").value;
@@ -289,10 +341,13 @@ return;
 let mensaje="Pedido Discada Norteña:%0A";
 if(litro>0) mensaje+="Litro x"+litro+"%0A";
 if(medio>0) mensaje+="Medio Litro x"+medio+"%0A";
+if(tortillas>0) mensaje+="Tortillas x"+tortillas+"%0A";
+if(salsa>0) mensaje+="Salsa x"+salsa+"%0A";
 mensaje+="Total: $"+total+"%0A%0A";
 mensaje+="Nombre: "+nombre+"%0A";
 mensaje+="Teléfono: "+telefono+"%0A";
-mensaje+="Dirección: "+direccion;
+mensaje+="Dirección: "+direccion+"%0A";
+mensaje+="Ubicación: "+ubicacionTexto;
 
 window.open("https://wa.me/5218110000000?text="+mensaje,"_blank");
 }
