@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tradicional Food</title>
+<title>Discada Norteña</title>
 
 <style>
 body{
@@ -23,17 +23,17 @@ min-height:100vh;
 }
 
 .header{
-padding:50px 20px 20px 20px;
+padding:30px 20px 10px 20px;
 }
 
 .logo{
 width:180px;
-margin-bottom:20px;
+margin-bottom:15px;
 }
 
 h1{
-color:#e63946;
-margin:5px 0;
+color:white;
+margin:5px 0 20px 0;
 font-size:26px;
 }
 
@@ -42,7 +42,7 @@ background:#e63946;
 color:white;
 border:none;
 padding:12px;
-margin:10px auto;
+margin:8px auto;
 width:85%;
 font-size:16px;
 border-radius:10px;
@@ -54,7 +54,6 @@ button:hover{
 background:#c1121f;
 }
 
-/* BOTONES NUEVOS */
 .btn-ingredientes{
 background:#ffb703;
 color:black;
@@ -197,13 +196,11 @@ background:#023e8a;
 
 <div class="header">
 <img src="https://i.postimg.cc/nL6gfHZ0/logo.png" class="logo">
-<h1>Tradicional Food</h1>
-<p>Discada Norteña 100% Casera</p>
+<h1>Discada Norteña</h1>
 
 <button onclick="toggleSeccion('menu')">🔥 HAZ TU PEDIDO 🔥</button>
 <button class="btn-ingredientes" onclick="toggleSeccion('ingredientes')">🍳 Ingredientes</button>
 <button class="btn-transferencia" onclick="toggleSeccion('transferencia')">💳 Cuenta para transferencias</button>
-
 </div>
 
 <!-- INGREDIENTES -->
@@ -221,7 +218,7 @@ background:#023e8a;
 <img src="https://i.postimg.cc/sgrnwfR0/Transferencias.png">
 </div>
 
-<!-- MENU ORIGINAL -->
+<!-- MENU -->
 <div class="menu" id="menu">
 
 <div class="item">
@@ -294,7 +291,7 @@ Total: $<span id="total">0</span>
 
 <div class="item">
 <label>📍 Dirección y referencias</label>
-<textarea id="referencia" placeholder="Casa azul, número 24, privada Los Pinos..."></textarea>
+<textarea id="referencia" placeholder="Casa azul, número 24..."></textarea>
 </div>
 
 <button class="location-btn" onclick="obtenerUbicacion()">📍 Enviar ubicación actual</button>
@@ -308,23 +305,18 @@ Total: $<span id="total">0</span>
 let ubicacionLink = "";
 
 function toggleSeccion(id){
-
 let secciones = ["menu","ingredientes","transferencia"];
-
 secciones.forEach(function(sec){
 if(sec !== id){
 document.getElementById(sec).style.display="none";
 }
 });
-
 let elemento = document.getElementById(id);
-
 if(elemento.style.display === "block"){
 elemento.style.display = "none";
 }else{
 elemento.style.display = "block";
 }
-
 }
 
 function copiarCuenta(){
